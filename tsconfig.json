@@ -5,10 +5,7 @@
       "pages/*": ["./web/pages/*"],
       "fixtures/*": ["./web/fixtures/*"],
       "specs/*": ["./web/specs/*","./mobile/specs/*"],
-      "helpers/*":["./helpers/*"],
       "core/*":["./core/*"],
-      "screens/*":["./mobile/screens/*"],
-      "testData/*":["./mobile/testData/*"]
     },
     "module": "commonjs",
     "target": "es6",
