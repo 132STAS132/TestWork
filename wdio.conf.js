@@ -137,42 +137,13 @@ exports.config = {
       },
     ],
     'spec',
-    // [
-    //   video,
-    //   {
-    //     saveAllVideos: true, // If true, also saves videos for successful test cases
-    //     videoSlowdownMultiplier: 3, // Higher to get slower videos, lower for faster videos [Value 1-100]
-    //     outputDir: './allure-results/allure-raw',
-    //   },
-    // ],
   ],
-
-  //
-  // Options to be passed to Mocha.
-  // See the full list at http://mochajs.org/
   mochaOpts: {
     ui: 'bdd',
     timeout: 600000,
     require: ['tsconfig-paths/register'],
     retries: 1,
   },
-  //
-  // =====
-  // Hooks
-  // =====
-  // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
-  // it and to build services around it. You can either apply a single function or an array of
-  // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
-  // resolved to continue.
-  /**
-   * Gets executed just before initialising the webdriver session and test framework. It allows you
-   * to manipulate configurations depending on the capability or spec.
-   * @param {Object} config wdio configuration object
-   * @param {Array.<Object>} capabilities list of capabilities details
-   * @param {Array.<String>} specs List of spec file paths that are to be run
-   */
-  // beforeSession: function (config, capabilities, specs) {
-  // },
   /**
    * Gets executed before test execution begins. At this point you can access to all global
    * variables like `browser`. It is the perfect place to define custom commands.
@@ -182,19 +153,6 @@ exports.config = {
   before: function(capabilities, specs) {
     // require('ts-node').register({ files: true });
   },
-  /**
-   * Runs before a WebdriverIO command gets executed.
-   * @param {String} commandName hook command name
-   * @param {Array} args arguments that command would receive
-   */
-  // beforeCommand: function (commandName, args) {
-  // },
-  /**
-   * Hook that gets executed before the suite starts
-   * @param {Object} suite suite details
-   */
-  // beforeSuite: function (suite) {
-  // },
   /**
    * Function to be executed before a test (in Mocha/Jasmine) or a step (in Cucumber) starts.
    * @param {Object} test test details
@@ -233,16 +191,5 @@ exports.config = {
       console.log(test.error.stack);
     }
     browser.reloadSession();
-    // const windows = browser.getWindowHandles();
-    // windows.forEach((w, i) => {
-    //   if (i !== 0) {
-    //     browser.switchToWindow(windows[i]);
-    //     browser.closeWindow();
-    //   }
-    // });
-    // browser.switchToWindow(windows[0]);
-    // browser.execute('window.sessionStorage.clear(); window.localStorage.clear();');
-    // browser.deleteAllCookies();
-    // browser.url('');
   },
 };
