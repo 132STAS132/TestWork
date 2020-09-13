@@ -168,7 +168,6 @@ class ProfilePage extends WelcomePage {
   verifyUserSupportPinValue(pin: string) {
     allure.startStep(`Verify user support pin value`);
     const actual = webDriver.getText(this.supportPin());
-    console.log(actual)
     expect(
         actual,
         `'${actual}' pin should be displayed, but '${pin}' pin was.`,
