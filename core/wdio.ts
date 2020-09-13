@@ -2,8 +2,6 @@ import * as faker from 'faker';
 import allureReporter from '@wdio/allure-reporter';
 import * as chai from 'chai';
 import chaiAsPromised = require('chai-as-promised');
-import {environment} from "helpers/envHelper";
-const updatedConfig = require('./../wdio.conf').config;
 
 chai.should();
 chai.use(chaiAsPromised);
@@ -27,12 +25,6 @@ export class Wdio {
 
   waitForEnabled(selector: string, waitTime = this.defaultWaitTime) {
       return $(selector).waitForEnabled(waitTime);
-  }
-
-  selectText(selector: string) {
-    this.click(selector);
-    browser.execute(`document.execCommand("selectall",null,false);`);
-    this.pause(1000);
   }
 
   setValue(selector: string, value: string, waitTime = this.defaultWaitTime) {
@@ -72,13 +64,6 @@ export class Wdio {
   endStepWithScreenShot() {
     this.takeScreenshot();
     allureReporter.endStep();
-  }
-
-  getBrowserEnvironment(): { name: string; version: string } {
-    return {
-      name: browser.capabilities.browserName,
-      version: browser.capabilities.browserVersion,
-    };
   }
 }
 

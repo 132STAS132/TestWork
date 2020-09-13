@@ -45,7 +45,22 @@ class ProfilePage extends WelcomePage {
     return 'button[class*="ssls-header-dropdown-nav-item"]'
   }
 
+  private profilePageTitle(): string {
+    return '.profile-page .page-title';
+  }
+
   //methods
+
+  verifyProfilePageTitle(title: string) {
+    allure.startStep(`Verify page title is [${title}]`);
+    const actualTitle = webDriver.getText(this.profilePageTitle());
+    expect(
+        actualTitle,
+        `'${title}' page title should be displayed, but '${actualTitle}' title was.`,
+    ).to.be.equal(title);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
 
   clickOnLogOutButton() {
     allureReporter.startStep('Click on the Log Out button')
@@ -99,9 +114,9 @@ class ProfilePage extends WelcomePage {
 
   getUserSupportPin() {
     allureReporter.startStep(`Get user support pin from field`);
-    webDriver.getText(this.supportPin())
+    const pin = webDriver.getText(this.supportPin())
     allureReporter.endStep();
-    return this;
+    return pin;
   }
 
   getUserInfo() {
@@ -117,16 +132,73 @@ class ProfilePage extends WelcomePage {
     return userInfo;
   }
 
-  // verifyLogInPageTitle(title: string) {
-  //   allure.startStep(`Verify page title is [${title}]`);
-  //   const actualTitle = webDriver.getText(this.logInPageTitle());
-  //   expect(
-  //       actualTitle,
-  //       `'${title}' page title should be displayed, but '${actualTitle}' title was.`,
-  //   ).to.be.equal(title);
-  //   webDriver.endStepWithScreenShot();
-  //   return this;
-  // }
+   verifyUserNameValue(name: string) {
+    allure.startStep(`Verify user name value`);
+    const actual = webDriver.getText(this.userNameField());
+    expect(
+        actual,
+        `'${name}' name is displayed, but should be '${actual}' was.`,
+    ).to.be.equal(name);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
+
+  verifyUserEmailValue(email: string) {
+    allure.startStep(`Verify user email value`);
+    const actual = webDriver.getText(this.userEmailField());
+    expect(
+        actual,
+        `'${email}' email should be displayed, but '${actual}' email was.`,
+    ).to.be.equal(email);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
+
+  verifyUserPhoneValue(phone: string) {
+    allure.startStep(`Verify user phone value`);
+    const actual = webDriver.getText(this.userPhoneField());
+    expect(
+        actual,
+        `'${phone}' user phone should be displayed, but '${actual}' phone was.`,
+    ).to.be.equal(phone);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
+
+  verifyUserSupportPinValue(pin: string) {
+    allure.startStep(`Verify user support pin value`);
+    const actual = webDriver.getText(this.supportPin());
+    console.log(actual)
+    expect(
+        actual,
+        `'${actual}' pin should be displayed, but '${pin}' pin was.`,
+    ).to.be.equal(pin);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
+
+  verifyUserNewsletterValue(state: boolean) {
+    allure.startStep(`Verify state of user's newsletter`);
+    webDriver.waitForVisible(this.newsletterLabel())
+    const actualState = webDriver.isElementDisplayed(this.newsletterLabel(true))
+    expect(
+        actualState,
+        `'${state}' state is actual, but '${actualState}' state was.`,
+    ).to.be.equal(state);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
+
+  verifyUserAddressValue(address: string) {
+    allure.startStep(`Verify user address value`);
+    const actual = webDriver.getText(this.userAddressField());
+    expect(
+        actual,
+        `'${address}' user address should be displayed, but '${actual}' address was.`,
+    ).to.be.equal(address);
+    webDriver.endStepWithScreenShot();
+    return this;
+  }
 }
 
 export const profilePage = new ProfilePage();

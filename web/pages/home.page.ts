@@ -11,12 +11,30 @@ export class HomePage extends WelcomePage{
     return `//i[contains(@class,'ssls-icon-user-circle')]/../span`;
   }
 
+  private userToolBar(): string {
+    return `.ssls-toolbar`;
+  }
+
   // Methods
 
   clickOnUserMenuDropdown() {
     allureReporter.startStep(`Click on the user menu dropdown`);
     webDriver.click(this.userMenuDropdown());
     allureReporter.endStep();
+    return this;
+  }
+
+  verifyUserToolBarIsPresent(isPresent = true) {
+    const state = isPresent? 'displayed' : 'not displayed'
+    allureReporter.startStep(`Verify user's tools bar is ${state}`);
+    isPresent
+        ? webDriver.waitForVisible(this.userToolBar())
+        : webDriver.waitForInVisible(this.userToolBar());
+    expect(
+        webDriver.isElementDisplayed(this.userToolBar()),
+        `User's tools bar should be ${state}"`
+    ).to.be.equal(isPresent);
+    webDriver.endStepWithScreenShot();
     return this;
   }
 

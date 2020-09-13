@@ -86,6 +86,9 @@ class LogInPage extends WelcomePage {
 
   verifyErrorModalText(text: string) {
     allureReporter.startStep(`Verify error modal text`);
+    try {
+      browser.waitUntil(() => webDriver.getText(this.errorModal()) === text);
+    } catch (e) {}
     const actual = webDriver.getText(this.errorModal());
     expect(
       actual,

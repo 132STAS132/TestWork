@@ -1,8 +1,6 @@
 /* eslint-disable */
 require('ts-node').register({ files: true });
 const { addAttachment, addDescription } = require('@wdio/allure-reporter').default;
-const { environment } = require('./helpers/envHelper.ts');
-
 
 exports.config = {
   //
@@ -24,7 +22,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    './web/specs/userProfile.spec.ts'
+    '././web/specs/**/**/*.spec.ts'
   ],
   // Patterns to exclude.
   exclude: [
@@ -205,7 +203,6 @@ exports.config = {
     browser.reloadSession();
     browser.url(this.baseUrl);
     console.log(test.title);
-    environment.setEnvironment();
     browser.setWindowSize(1368, 768);
     browser.setTimeout({'script': 120000});
   },

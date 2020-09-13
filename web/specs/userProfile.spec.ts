@@ -3,13 +3,17 @@ import { users } from "fixtures/users";
 import {homePage} from "pages/home.page";
 import {pageTitles} from "fixtures/pageTitles";
 import {profilePage} from "pages/profile.page";
-import {webDriver} from "core/wdio";
 
-describe('Authorization page (Welcome back!)', () => {
-    it('Home page has to be opened' +
-        'Authorization page has to be opened' +
-        'After click on "eye" icon for password field, password should be displayed' +
-        '"Log in" button has to be changed on "User@email" button (with dropdown menu) from the left side in the Header of the page', () => {
+describe('My profile page. Client area', () => {
+    it('After click on "Profile" opened page "Profile" should be displayed' +
+        'Check that opened page has to contain values in the next fields and compare with values saved to variable from precondition:' +
+        '2.1. Name' +
+        '2.2. Email' +
+        '2.3. Password (not empty)' +
+        '2.4. Phone' +
+        '2.5. Address' +
+        '2.6. Support pin' +
+        '2.7. Newsletter', () => {
         const user = users.defaultUser();
         logInPage
             .verifyHomePageIsPresent()
@@ -20,26 +24,31 @@ describe('Authorization page (Welcome back!)', () => {
             .setPasswordValue(user.password)
             .clickOnLogInButton();
         homePage
+            .verifyUserToolBarIsPresent()
             .verifyUserDropdownIsPresent()
             .clickOnUserMenuDropdown();
         profilePage
-            .clickOnProfileMenuButton();
+            .clickOnProfileMenuButton()
+            .verifyProfilePageTitle(pageTitles.userProfile)
         const userInfo = profilePage.getUserInfo();
-        homePage.clickOnUserMenuDropdown();
+        homePage
+            .clickOnUserMenuDropdown();
         profilePage.clickOnLogOutButton();
-        webDriver.reloadSession();
         logInPage
-            .verifyHomePageIsPresent()
-            .clickOnLogInMenuButton()
-            .verifyLogInPageIsPresent()
             .verifyLogInPageTitle(pageTitles.authorization)
             .setEmailValue(user.emailInUse)
             .setPasswordValue(user.password)
             .clickOnLogInButton();
         homePage
+            .verifyUserToolBarIsPresent()
             .clickOnUserMenuDropdown();
         profilePage
-            .clickOnProfileMenuButton();
-
+            .clickOnProfileMenuButton()
+            .verifyUserNameValue(userInfo.name)
+            .verifyUserAddressValue(userInfo.address)
+            .verifyUserEmailValue(userInfo.email)
+            .verifyUserSupportPinValue(userInfo.pin)
+            .verifyUserNewsletterValue(userInfo.newsletter)
+            .verifyUserPhoneValue(userInfo.phone)
     });
 })
