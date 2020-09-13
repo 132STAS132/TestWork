@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "pages/*": ["./web/pages/*"],
+      "fixtures/*": ["./web/fixtures/*"],
+      "specs/*": ["./web/specs/*","./mobile/specs/*"],
+      "helpers/*":["./helpers/*"],
+      "core/*":["./core/*"],
+      "screens/*":["./mobile/screens/*"],
+      "testData/*":["./mobile/testData/*"]
+    },
+    "module": "commonjs",
+    "target": "es6",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": false,
+    "outDir": "typeScript",
+    "typeRoots": ["./node_modules/@types", "./node_modules/@wdio"],
+    "types": [
+      "node",
+      "chai",
+      "mocha",
+      "@wdio/mocha-framework",
+      "@wdio/sync",
+      "webdriverio"
+    ]
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
+}
